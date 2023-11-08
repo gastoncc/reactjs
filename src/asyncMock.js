@@ -16,7 +16,7 @@ const products = [
     img: "",
     stock: "10",
     descripcion: "batman n1",
-}
+},
 {
     id: "3",
     name: "blue lock manga",

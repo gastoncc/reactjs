@@ -6,6 +6,7 @@ function ItemDetail({ name, img, price, stock }) {
             <p>{name}</p>
             <img src={img} style={{ width: 100 }} />
             <p> ${price} </p>
+            <p>Description: {descrit} </p>
             <ItemCount stock={stock}/>
         </div>
     )
