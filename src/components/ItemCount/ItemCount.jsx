@@ -2,7 +2,7 @@ import { useState } from "react"
 
 const ItemCount = ({ stock, onAdd }) => {
     const [count, setCount] = useState(1)
-}
+
 const restar = () => {
     if(count > 1) {
         setCount(prev => prev - 1)

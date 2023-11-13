@@ -1,13 +1,13 @@
-import 
+import ItemCount from '../ItemCount/ItemCount'
 
-function ItemDetail({ name, img, price, stock }) {
+const ItemDetail = ({ name, img, price, stock, description }) => {
     return (
-        <div key={prod.id}>
+        <div>
             <p>{name}</p>
             <img src={img} style={{ width: 100 }} />
             <p> ${price} </p>
-            <p>Description: {descrit} </p>
-            <ItemCount stock={stock}/>
+            <p> description: {description}</p>
+            <ItemCount stock={stock} onAdd={(quatity) => console.log("cantidad agregada: " + quatity)}/>
         </div>
     )
 }
