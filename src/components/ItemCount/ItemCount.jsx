@@ -1,25 +1,24 @@
-import { useState } from "react"
 
-const ItemCount = ({ stock, onAdd }) => {
-    const [count, setCount] = useState(1)
+import { useCount } from '../../hooks/useCount'
 
-const restar = () => {
-    if(count > 1) {
-        setCount(prev => prev - 1)
-    }
-} 
-const sumar = () => {
-    if(count < stock) {
-        setCount(prev => prev + 1)
-    }
-}
-(quantity) => console.log ("cantidad agregada: " + quantity)
-    return (
-        <div>
-            <h1>{count}</h1>
-            <button onClick={sumar}>sumar</button>
-            <button onClick={() => onAdd(count)}>agregar al carrito</button>
-            <button onClick={restar}>restar</button>
+
+
+const ItemCount = ({stock, onAdd}) => {
+
+    const {count, decrement, increment} = useCount((stock>0 ? 1 : 0), stock)
+
+    return(
+        <div className={classes.itemCount}>
+            <div className={classes.counter}>
+                <button className={classes.itemCountButton} onClick={decrement} disabled={stock==0}>
+                </button>
+                <label className={classes.itemCountLabel}>{count}</label>
+                <button className={classes.itemCountButton} onClick={increment} disabled={stock==0}>
+                </button>
+            </div>
+            <div className={classes.adder}>
+                <button className={classes.itemAddButton} onClick={() => onAdd(count)} disabled={count==0}>Agregar al carrito</button>
+            </div>
         </div>
     )
 }

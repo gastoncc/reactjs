@@ -1,31 +1,41 @@
-import { useState, useEffect } from "react"
-import { getProductById } from "../../asyncMock"
-import ItemDetail from "../ItemDetail/ItemDetail"
-import { useParams } from "react-router-dom"
+import { useAsync } from '../../hooks/useAsync'
+import { getItemById } from '../../firebase/firestore/products' 
+import { useParams } from 'react-router-dom'
 
+import Loader from '../Loader/Loader'
+import ItemDetail from '../ItemDetail/ItemDetail'
 
 const ItemDetailContainer = () => {
-    const [product, setProduct] = useState(null)
+
     const { itemId } = useParams()
-   
-        useEffect(() => {
-        getProductById(itemId)
-        .then(Response => {
-            setProduct(Response)
-        })
-    }, [itemId])
+    const asyncFunction = () => getItemById(itemId)
+    const {data: item, loading, error } = useAsync(asyncFunction, [itemId])
 
+    console.log(item);
 
-    return (
-        <div>
+    if (loading) {
+        return(
+            <Loader/>
+        )
+    }
 
-         <h1>detalle de producto</h1>
-        <ItemDetail {...product} />
+    if(!item.name){
+        return(
+            <h2 style={{fontSize: 40, position:'absolute', top: '40%', left:'50%', transform: 'translateX(-50%)'}}>No existe</h2>
+        )
+    }
 
-        </div>
-        
-       
+    if (error) {
+        return(
+            <h2 style={{fontSize: 40, position:'absolute', top: '40%', left:'50%', transform: 'translateX(-50%)'}}>No se realizo la compra</h2>
+        )
+    }
+
+    return(
+        <ItemDetail greeting={'Detalle del producto: '} {...item}/>
     )
 }
 
 export default ItemDetailContainer
+
+
